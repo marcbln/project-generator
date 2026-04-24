@@ -1,0 +1,10 @@
+{
+  "project_name": "My Awesome CLI",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
+  "package_name": "{{ cookiecutter.project_slug.replace('-', '_') }}",
+  "version": "0.1.0",
+  "description": "A modern Python CLI application.",
+  "author_name": "Topdata GmbH",
+  "author_email": "info@topdata.de",
+  "python_version": "3.12"
+}

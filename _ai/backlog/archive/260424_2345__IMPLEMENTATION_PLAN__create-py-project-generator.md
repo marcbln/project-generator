@@ -1,13 +1,9 @@
-
-
-
-```markdown
 ---
-filename: "_ai/backlog/active/260424_2345__IMPLEMENTATION_PLAN__create-py-project-generator.md"
+filename: "_ai/backlog/archive/260424_2345__IMPLEMENTATION_PLAN__create-py-project-generator.md"
 title: "Create Python Project Generator CLI"
 createdAt: 2026-04-24 23:45
-updatedAt: 2026-04-24 23:45
-status: draft
+updatedAt: 2026-04-25 00:05
+status: completed
 priority: high
 tags:[cli, cookiecutter, python, templating]
 estimatedComplexity: moderate
@@ -38,17 +34,20 @@ Type Checking: mypy
 This phase establishes the root configuration for the generator tool itself, applying the exact conventions it aims to generate.
 
 ### `pyproject.toml` [NEW FILE]
-```toml[build-system]
+```toml
+[build-system]
 requires = ["hatchling"]
-build-backend = "hatchling.build"[project]
+build-backend = "hatchling.build"
+
+[project]
 name = "py-project-generator"
 version = "0.1.0"
 description = "A generator for creating Python CLI projects using Cookiecutter and UV."
 requires-python = ">=3.12"
-authors =[
+authors = [
     { name = "Topdata GmbH", email = "info@topdata.de" }
 ]
-dependencies =[
+dependencies = [
     "typer>=0.9.0",
     "rich>=13.7.0",
     "cookiecutter>=2.5.0",
@@ -59,7 +58,7 @@ dependencies =[
 py-project-generator = "py_project_generator.cli:main"
 
 [project.optional-dependencies]
-dev =[
+dev = [
     "pytest>=8.0.0",
     "pytest-cov>=4.1.0",
     "mypy>=1.8.0",
@@ -68,7 +67,9 @@ dev =[
 
 [tool.ruff]
 line-length = 88
-lint.select = ["E", "F", "W", "I"][tool.mypy]
+lint.select = ["E", "F", "W", "I"]
+
+[tool.mypy]
 strict = true
 ```
 
@@ -144,7 +145,7 @@ We embed the Cookiecutter template directly within the generator package so it s
 ### `src/py_project_generator/templates/cookiecutter-python-cli/{{cookiecutter.project_slug}}/pyproject.toml` [NEW FILE]
 ```toml
 [build-system]
-requires =["hatchling"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
@@ -152,10 +153,10 @@ name = "{{ cookiecutter.project_slug }}"
 version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.description }}"
 requires-python = ">={{ cookiecutter.python_version }}"
-authors =[
+authors = [
     { name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.author_email }}" },
 ]
-dependencies =[
+dependencies = [
     "typer>=0.9.0",
     "rich>=13.7.0",
     "pyyaml>=6.0",
@@ -166,14 +167,16 @@ dependencies =[
 {{ cookiecutter.project_slug }} = "{{ cookiecutter.package_name }}.cli:main"
 
 [project.optional-dependencies]
-dev =[
+dev = [
     "pytest>=8.0.0",
     "pytest-cov>=4.1.0",
     "mypy>=1.8.0",
     "ruff>=0.3.0",
-][tool.ruff]
+]
+
+[tool.ruff]
 line-length = 88
-lint.select =["E", "F", "W", "I"]
+lint.select = ["E", "F", "W", "I"]
 
 [tool.mypy]
 strict = true
@@ -210,8 +213,6 @@ run +args="--help":
 	uv run {{ cookiecutter.project_slug }} {{ "{{args}}" }}
 ```
 
-*(Note: The full template includes `src/`, `tests/`, etc., which will be structurally mirrored from the standard conventions inside the `templates/` dir).*
-
 ---
 
 ## Phase 3: Core Business Logic (SOLID)
@@ -223,11 +224,10 @@ run +args="--help":
 __version__ = "0.1.0"
 ```
 
-### `src/py_project_generator/config.py`[NEW FILE]
+### `src/py_project_generator/config.py` [NEW FILE]
 ```python
 """Configuration settings for the generator."""
 
-import os
 from pathlib import Path
 
 CLI_CONTEXT_SETTINGS = {
@@ -253,9 +253,10 @@ from rich.console import Console
 
 from ..config import TEMPLATE_DIR
 
+
 class ProjectGenerator:
     """Encapsulates project generation logic (Single Responsibility)."""
-    
+
     def __init__(self, console: Console):
         self.console = console
 
@@ -265,7 +266,7 @@ class ProjectGenerator:
             raise FileNotFoundError(f"Template directory not found at {TEMPLATE_DIR}")
 
         self.console.print(f"[dim]Using template from: {TEMPLATE_DIR}[/dim]")
-        
+
         result_dir = cookiecutter(
             str(TEMPLATE_DIR),
             no_input=no_input,
@@ -296,6 +297,7 @@ from ..core.generator import ProjectGenerator
 
 console = Console()
 
+
 def main(
     project_name: str = typer.Argument(
         None, help="The name of the project to generate (e.g., 'My Awesome CLI')."
@@ -309,13 +311,13 @@ def main(
 ) -> None:
     """Generate a new Python project from the standardized template."""
     console.print(Panel.fit("Python Project Generator", style="bold green"))
-    
+
     extra_context = {}
     if project_name:
         extra_context["project_name"] = project_name
 
     generator = ProjectGenerator(console=console)
-    
+
     try:
         result_path = generator.generate(
             output_dir=output_dir,
@@ -349,17 +351,21 @@ app = typer.Typer(
     help="Python Project Generator - Scaffolds modern Python CLIs.",
 )
 
+
 @app.command()
 def version() -> None:
     """Show the application version."""
     from . import __version__
     console.print(f"[cyan]py-project-generator[/cyan] version [green]{__version__}[/green]")
 
+
 app.command(name="generate")(generate_cmd.main)
+
 
 def main() -> None:
     """Entry point for the CLI."""
     app()
+
 
 if __name__ == "__main__":
     main()
@@ -378,11 +384,13 @@ from py_project_generator.cli import app
 
 runner = CliRunner()
 
+
 def test_version() -> None:
     """Test the version command."""
     result = runner.invoke(app, ["version"])
     assert result.exit_code == 0
     assert "version" in result.stdout
+
 
 def test_help() -> None:
     """Test that -h shows help."""
@@ -452,7 +460,7 @@ documentType: IMPLEMENTATION_REPORT
 ```
 
 #### Report Content
-1. **Summary**: Developed the `py-project-generator` using Typer. It dynamically utilizes Cookiecutter to instantiate fully configured, convention-adhering Python CLI applications. 
+1. **Summary**: Developed the `py-project-generator` using Typer. It dynamically utilizes Cookiecutter to instantiate fully configured, convention-adhering Python CLI applications.
 2. **Files Changed**:
    - `pyproject.toml`, `justfile`, `.gitignore`: Setup for the generator.
    - `src/py_project_generator/templates/...`: Embedded cookiecutter templates.
@@ -464,10 +472,8 @@ documentType: IMPLEMENTATION_REPORT
 4. **Technical Decisions**:
    - Included Cookiecutter programmatically via the Python API (`cookiecutter()`) rather than via a shell subprocess to allow clean context handling and error trapping.
 5. **Testing Notes**: Run `just test` to verify CLI command bindings.
-6. **Usage Examples**: 
+6. **Usage Examples**:
    - `uv run py-project-generator generate` (interactive)
    - `uv run py-project-generator generate "Data Importer" --no-input` (automated)
 7. **Documentation Updates**: Provided `README.md` explaining bootstrapping setup.
 8. **Next Steps**: Consider adding a configuration file loader to dynamically override default company configurations (e.g. `~/.config/topdata/project-defaults.yml`).
-```
-

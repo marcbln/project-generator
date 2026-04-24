@@ -1,0 +1,14 @@
+{
+  "theme_name": "TopdataMyFancyThemeSW6",
+  "theme_name_normalized": "MyFancyThemeSW6",
+  "theme_name_with_hyphens": "topdata-my-fancy-theme-sw6",
+  "theme_class": "{{ cookiecutter.theme_name }}",
+  "namespace": "Topdata\\{{ cookiecutter.theme_name }}",
+  "vendor": "topdata",
+  "composer_package_name": "{{ cookiecutter.vendor }}/{{ cookiecutter.theme_name_with_hyphens | replace('-sw6', '') }}",
+  "domain": "sw67.shopware-shops.com",
+  "company_name": "Topdata Software GmbH",
+  "company_address": "Gubener Str. 47 A | 10243 Berlin | Deutschland",
+  "company_phone": "+49 30 27 87 410",
+  "company_email": "info@sw67.shopware-shops.com"
+}

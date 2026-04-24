@@ -14,3 +14,4 @@
 just setup
 just run
 ```
+cargo install just

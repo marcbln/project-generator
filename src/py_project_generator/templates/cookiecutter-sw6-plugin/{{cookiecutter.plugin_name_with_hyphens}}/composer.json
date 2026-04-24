@@ -1,0 +1,39 @@
+{
+    "name":        "{{ cookiecutter.composer_package_name }}",
+    "description": "Topdata {{ cookiecutter.plugin_name_normalized }}",
+    "version":     "v1.0.0",
+    "type":        "shopware-platform-plugin",
+    "license":     "MIT",
+    "authors":     [
+        {
+            "name":     "TopData Software GmbH",
+            "homepage": "https://www.topdata.de",
+            "role":     "Manufacturer"
+        }
+    ],
+    "require":     {
+        "shopware/core": "6.7.*"
+    },
+    "extra":       {
+        "shopware-plugin-class": {{ (cookiecutter.namespace ~ '\\\\' ~ cookiecutter.plugin_class)|tojson }},
+        "plugin-icon": "src/Resources/config/plugin.png",
+        "copyright": "(c) by TopData Software GmbH",
+        "label":                 {
+            "en-GB": "Topdata {{ cookiecutter.plugin_name_normalized }}",
+            "de-DE": "Topdata {{ cookiecutter.plugin_name_normalized }}"
+        },
+        "description":           {
+            "en-GB": "Topdata {{ cookiecutter.plugin_name_normalized }}",
+            "de-DE": "Topdata {{ cookiecutter.plugin_name_normalized }}"
+        },
+        "manufacturerLink":      {
+            "de-DE": "https://www.topdata.de",
+            "en-GB": "https://www.topdata.de"
+        }
+    },
+    "autoload":    {
+        "psr-4": {
+            {{ (cookiecutter.namespace ~ '\\\\')|tojson }}: "src/"
+        }
+    }
+}

@@ -1,0 +1,13 @@
+// Base theme styles for {{ cookiecutter.theme_name }}.
+:root {
+  --brand-primary: #0f6b5f;
+  --brand-accent: #f4c542;
+}
+
+body {
+  color: #1f2a33;
+}
+
+a {
+  color: var(--brand-primary);
+}

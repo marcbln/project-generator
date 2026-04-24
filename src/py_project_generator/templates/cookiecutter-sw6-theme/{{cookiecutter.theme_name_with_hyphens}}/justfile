@@ -1,0 +1,14 @@
+default: help
+
+help:
+	@just --list
+
+setup:
+	composer install
+	@echo "Theme dependencies installed."
+
+build-storefront:
+	@echo "Run this in your Shopware root if needed: bin/build-storefront.sh"
+
+qa:
+	composer validate

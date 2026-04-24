@@ -18,14 +18,57 @@ just setup
 
 ## Usage
 
-Run the generation wizard:
+### Command Structure
 
 ```bash
-uv run py-project-generator generate
+pypg generate <template-type> <project-name> [options]
 ```
 
-Or pass variables explicitly:
+### Available Templates
+
+- **python-cli**: Scaffolds a Python CLI application
+- **sw6-plugin**: Scaffolds a Shopware 6 plugin
+- **sw6-theme**: Scaffolds a Shopware 6 theme
+
+### Examples
+
+Generate a Python CLI project (with prompts):
 
 ```bash
-uv run py-project-generator generate "My Super Tool" -o ./projects
+pypg generate python-cli "My Awesome Tool"
 ```
+
+Generate a Python CLI project with custom output directory:
+
+```bash
+pypg generate python-cli "My Awesome Tool" -o ~/devel
+```
+
+Generate a Shopware 6 plugin (no interactive prompts):
+
+```bash
+pypg generate sw6-plugin TopdataMyNewPluginSW6 --no-input
+```
+
+Generate a SW6 plugin in a specific directory:
+
+```bash
+pypg generate sw6-plugin TopdataMyNewPluginSW6 -o /topdata/sw6-plugins --no-input
+```
+
+Generate a Shopware 6 theme:
+
+```bash
+pypg generate sw6-theme TopdataMyNewThemeSW6 --no-input
+```
+
+Generate a SW6 theme in a specific directory:
+
+```bash
+pypg generate sw6-theme TopdataMyNewThemeSW6 -o /topdata/sw6-themes --no-input
+```
+
+### Options
+
+- `-o, --output-dir`: Directory where the project will be created (default: current directory)
+- `--no-input`: Skip interactive prompts and use defaults/overrides only

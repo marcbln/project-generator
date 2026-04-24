@@ -1,0 +1,33 @@
+{
+    "name": "{{ cookiecutter.composer_package_name }}",
+    "description": "Topdata {{ cookiecutter.theme_name_normalized }} Theme",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "version": "v1.0.0",
+    "authors": [
+        {
+            "name": "{{ cookiecutter.company_name }}",
+            "email": "{{ cookiecutter.company_email }}",
+            "role": "Manufacturer"
+        }
+    ],
+    "require": {
+        "shopware/core": "6.7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            {{ (cookiecutter.namespace ~ '\\\\')|tojson }}: "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": {{ (cookiecutter.namespace ~ '\\\\' ~ cookiecutter.theme_class)|tojson }},
+        "label": {
+            "en-GB": "Topdata {{ cookiecutter.theme_name_normalized }}",
+            "de-DE": "Topdata {{ cookiecutter.theme_name_normalized }}"
+        },
+        "description": {
+            "en-GB": "Shopware 6 theme for {{ cookiecutter.domain }}",
+            "de-DE": "Shopware 6 Theme fuer {{ cookiecutter.domain }}"
+        }
+    }
+}

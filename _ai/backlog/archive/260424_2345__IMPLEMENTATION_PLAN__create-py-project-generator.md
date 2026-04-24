@@ -45,7 +45,7 @@ version = "0.1.0"
 description = "A generator for creating Python CLI projects using Cookiecutter and UV."
 requires-python = ">=3.12"
 authors = [
-    { name = "Topdata GmbH", email = "info@topdata.de" }
+    { name = "Topdata Software GmbH", email = "info@topdata.de" }
 ]
 dependencies = [
     "typer>=0.9.0",
@@ -136,7 +136,7 @@ We embed the Cookiecutter template directly within the generator package so it s
     "package_name": "{{ cookiecutter.project_slug.replace('-', '_') }}",
     "version": "0.1.0",
     "description": "A modern Python CLI application.",
-    "author_name": "Topdata GmbH",
+    "author_name": "Topdata Software GmbH",
     "author_email": "info@topdata.de",
     "python_version": "3.12"
 }

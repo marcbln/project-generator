@@ -1,0 +1,8 @@
+src/Resources/public/
+vendor/
+node_modules/
+.idea/
+*.log
+
+# Keep .gitkeep files
+!/**/.gitkeep

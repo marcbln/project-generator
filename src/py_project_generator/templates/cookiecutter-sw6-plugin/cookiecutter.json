@@ -1,0 +1,9 @@
+{
+  "plugin_name": "TopdataMyFancyPluginSW6",
+  "plugin_name_normalized": "MyFancyPluginSW6",
+  "plugin_name_with_hyphens": "topdata-my-fancy-plugin-sw6",
+  "plugin_class": "{{ cookiecutter.plugin_name }}",
+  "namespace": "Topdata\\{{ cookiecutter.plugin_name }}",
+  "vendor": "topdata",
+  "composer_package_name": "{{ cookiecutter.vendor }}/{{ cookiecutter.plugin_name_with_hyphens | replace('-sw6', '') }}"
+}

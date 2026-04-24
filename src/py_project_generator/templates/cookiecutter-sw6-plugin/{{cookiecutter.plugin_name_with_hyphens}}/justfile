@@ -1,0 +1,14 @@
+default: help
+
+help:
+	@just --list
+
+setup:
+	composer install
+	@echo "Plugin dependencies installed."
+
+qa:
+	composer validate
+
+cs:
+	@echo "Run your preferred PHP CS fixer in this plugin directory."

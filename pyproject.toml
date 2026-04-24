@@ -9,7 +9,7 @@ description = "A generator for creating Python CLI projects using Cookiecutter a
 readme = "README.md"
 requires-python = ">=3.12"
 authors = [
-    { name = "Topdata GmbH", email = "info@topdata.de" }
+    { name = "Topdata Software GmbH", email = "info@topdata.de" }
 ]
 dependencies = [
     "typer>=0.9.0",
